@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Scanner;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,10 +19,26 @@ public class IntialTest {
 		Thread.sleep(5000);
 		driver.findElement(By.id("ClockIn")).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[@id=\'GatherJobCodeList\']/tbody/tr[2]/td[3]")).click();
-		Thread.sleep(1000);
+		
+		//New Code 2/11/20
+		List<WebElement> elements = driver.findElements(By.cssSelector("td[ng-bind='objJobCode.strDescription']"));
+		System.out.println("Which Job?");
+		int i = 0;
+        while (i < elements.size()) {
+            int choice = i + 1;
+        	System.out.println(choice + " " + elements.get(i).getText());
+            i++;
+        }
+        Scanner sc = new Scanner(System.in);
+        int selection = sc.nextInt();
+        String xpathJob = "//*[@id=\'GatherJobCodeList\']/tbody/tr[" + Integer.toString(selection) + "]/td[3]";
+		//
+        
+        driver.findElement(By.xpath(xpathJob)).click();
+		Thread.sleep(3000);
 		driver.findElement(By.xpath("//*[@id=\'featureForm\']/div[2]/div/div/div/div[3]/input[3]")).click();
 		Thread.sleep(1000);
+		sc.close();
 		driver.close();
 		Thread.sleep(5000);
 	}
@@ -49,6 +68,8 @@ public class IntialTest {
 		
 		clockin(url,username,password);
 		clockout(url, username, password);
+		
+		System.exit(0);
 		
 	}
 }
