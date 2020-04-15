@@ -1,6 +1,10 @@
 package multithreadedserver;
 
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +28,7 @@ public class Clock {
 		element.click();
 	}
 	
-	public static void clockin(String url, String username, String password) throws InterruptedException {
+	public static void clockin(String url, String username, String password) throws InterruptedException, IOException {
 		WebDriver driver = new ChromeDriver();
 		driver.get(url);
 		driver.findElement(By.xpath("//*[@id='okta-signin-username']")).sendKeys(username);
